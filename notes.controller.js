@@ -44,5 +44,5 @@ async function removeNoteById(id) {
 }
 
 module.exports = {
-    addNote, printNotes, removeNoteById
+    addNote, printNotes, removeNoteById, getNotes
 }
