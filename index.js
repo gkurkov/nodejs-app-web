@@ -3,7 +3,7 @@ const express = require('express')
 const chalk = require('chalk')
 // const fs = require('fs/promises')
 const path = require('path')
-const { addNote, getNotes, removeNoteById } = require('./notes.controller')
+const { addNote, getNotes, removeNoteById, updateNote } = require('./notes.controller')
 // npm i ejs -> установить ejs
 
 const port = 3000
@@ -15,7 +15,7 @@ app.set('view engine', 'ejs')
 app.set('views', 'pages')
 
 app.use(express.static(path.resolve(__dirname, 'public')))
-
+app.use(express.json())
 app.use(express.urlencoded({
     extended: true
 }))
@@ -49,6 +49,15 @@ app.delete('/:id', async (req, res) => {
     await removeNoteById(req.params.id)
     res.render('index', {
         // title уходит на frontend
+        title: 'Express App',
+        notes: await getNotes(),
+        created: false
+    })
+})
+
+app.put('/:id', async (req, res) => {
+    await updateNote({ id: req.params.id, title: req.body.title })
+    res.render('index', {
         title: 'Express App',
         notes: await getNotes(),
         created: false

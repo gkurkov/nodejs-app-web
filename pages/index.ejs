@@ -22,7 +22,7 @@
     <h1><%= title %></h1>
 <!--    <h1>It's working</h1>-->
 
-    <form action="/" method="post">
+    <form action="/" method="post" class="mb-2">
         <div class="form-group mb-2">
             <input type="text" class="form-control" name="title" required>
         </div>
@@ -35,8 +35,11 @@
         <ul class="list-group">
             <% for (let i = 0; i < notes.length; i++) { %>
             <li class="list-group-item d-flex justify-content-between align-items-center">
-                <%= notes[i].title %>
+                <span><%= notes[i].title %></span>
+                <div>
+                <button class="btn btn-primary" data-type="edit" data-id="<%= notes[i].id %>" data-title="<%= notes[i].title %>">Редактировать</button>
                 <button class="btn btn-danger" data-type="remove" data-id="<%= notes[i].id %>">&times;</button>
+                </div>
             </li>
             <% } %>
         </ul>
